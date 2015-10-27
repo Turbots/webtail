@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <appender name="SIFT-APPENDER" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <!-- This is MDC value , we will assign a value to 'logFileName' via code -->
+        <discriminator>
+            <key>logFileName</key>
+            <defaultValue>C:/dhubau/ICD/logs/log.log</defaultValue>
+        </discriminator>
+
+        <sift>
+            <appender name="FILE-${logFileName}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${logFileName}</file>
+                <append>false</append>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <Pattern>%msg</Pattern>
+                </encoder>
+
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <FileNamePattern>${logFileName}.%d</FileNamePattern>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <logger name="FILE" level="DEBUG" additivity="false">
+        <appender-ref ref="SIFT-APPENDER"/>
+    </logger>
+</configuration>

@@ -94,7 +94,11 @@ public class WebTailer {
     }
 
     private long getContentLength(final HttpResponse response) {
-        Header contentLength = response.getFirstHeader("Content-Length");
-        return Long.valueOf(contentLength.getValue());
+        Header contentLengthHeader = response.getFirstHeader("Content-Length");
+        if (contentLengthHeader == null) {
+            return 0;
+        } else {
+            return Long.valueOf(contentLengthHeader.getValue());
+        }
     }
 }

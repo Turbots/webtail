@@ -1,0 +1,6 @@
+servers:
+  - name: serverName
+    serverLogs:
+    - name: logName
+      url: https://stat.duke.edu/~mw/data-sets/ts_data/soi
+      filename: data.log
